@@ -4,19 +4,19 @@ const employeeRoute = express.Router();
 const cors = require("cors");
 
 // CORS OPTIONS
-var whitelist = ["http://localhost:4200", "http://localhost:4000"];
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header("Origin")) !== -1) {
-    corsOptions = {
-      origin: "*",
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    };
-  } else {
-    corsOptions = { origin: false }; // disable CORS for this request
-  }
-  callback(null, corsOptions);
-};
+// var whitelist = ["http://localhost:4200", "http://localhost:4000"];
+// var corsOptionsDelegate = function (req, callback) {
+//   var corsOptions;
+//   if (whitelist.indexOf(req.header("Origin")) !== -1) {
+//     corsOptions = {
+//       origin: "*",
+//       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     };
+//   } else {
+//     corsOptions = { origin: false }; // disable CORS for this request
+//   }
+//   callback(null, corsOptions);
+// };
 
 // Employee model
 let Employee = require("../models/Employee");
@@ -38,7 +38,7 @@ employeeRoute.route("/create").post(async (req, res, next) => {
 
 // Get All Employees
 employeeRoute
-  .route("/", cors(corsOptionsDelegate))
+  .route("/")
   .get(async (req, res, next) => {
     await Employee.find()
       .then((result) => {
