@@ -1,47 +1,29 @@
-const express = require('express')
-const path = require('path')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const bodyParser = require('body-parser')
+const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const createError = require('http-errors'); // Add this line
 
-// Connecting with mongo db
-// Connecting MongoDB
-async function mongoDbConnection() {
-    await mongoose.connect(
-      "mongodb+srv://chethan:qwerty123456@cluster0.osjq2hi.mongodb.net/",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      6000
-    );
-  }
-  mongoDbConnection().then(() => {
-    console.log("MongoDB successfully connected.");
-  }),
-    (err) => {
-      console.log("Could not connected to database : " + err);
-    };
-  
-// Setting up port with express js
-const employeeRoute = require('../backend/routes/employee.route')
-const app = express()
-app.use(bodyParser.json())
+// ... MongoDB connection code ...
+
+const employeeRoute = require('../backend/routes/employee.route');
+const app = express();
+app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: false,
-  }),
-)
-app.use(cors())
-app.use(express.static(path.join(__dirname, 'dist/mean-stack-crud-app')))
-app.use('/', express.static(path.join(__dirname, 'dist/mean-stack-crud-app')))
-app.use('/api', employeeRoute)
+  })
+);
+app.use(cors());
+app.use(express.static(path.join(__dirname, 'dist/mean-stack-crud-app')));
+app.use('/', express.static(path.join(__dirname, 'dist/mean-stack-crud-app')));
+app.use('/api', employeeRoute);
 
-// Create port
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
-  console.log('Connected to port ' + port)
-})
+  console.log('Connected to port ' + port);
+});
 
 // Find 404 and hand over to error handler
 app.use((req, res, next) => {
