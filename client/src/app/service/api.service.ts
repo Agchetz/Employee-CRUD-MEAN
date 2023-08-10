@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class ApiService {
-  baseUri: string = 'http://3.110.165.193:4000/api';
+  baseUri: string = 'http://3.109.154.108:4000/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   
